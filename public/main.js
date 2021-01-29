@@ -1,4 +1,4 @@
-$(function() {
+// $(function() {
   const FADE_TIME = 150; // ms
   const TYPING_TIMER_LENGTH = 400; // ms
   const COLORS = [
@@ -232,6 +232,23 @@ $(function() {
     });
     addParticipantsMessage(data);
   });
+  
+// ===================== 구글맵 시작 ===============================
+  socket.on('marker click', (data) => {
+    addMarkerClick(data);
+  });
+
+  // Adds the visual chat message to the message list
+  const addMarkerClick = (data) => {
+    console.log('addChatMessage : ', data);
+    const marker = new google.maps.Marker({
+        position: data.location,
+        map: map
+    });
+  }
+  
+// ===================== 구글맵 끝 ===============================
+
 
   // Whenever the server emits 'new message', update the chat body
   socket.on('new message', (data) => {
@@ -276,4 +293,4 @@ $(function() {
     log('attempt to reconnect has failed');
   });
 
-});
+// });

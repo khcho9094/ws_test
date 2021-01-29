@@ -20,7 +20,7 @@ let numUsers = 0;
 io.on('connection', (socket) => {
 
   socket.on('marker click', (data) => {
-    console.log(data)
+    console.log('data : ', data)
     socket.broadcast.emit('marker click', {
       username: socket.username,
       location: data
