@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <title>Socket.IO Chat Example</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- <ul class="pages">
+    <li class="chat page">
+      <div class="chatArea">
+        <ul class="messages"></ul>
+      </div>
+      <input class="inputMessage" placeholder="Type here..."/>
+    </li>
+    <li class="login page">
+      <div class="form">
+        <h3 class="title">이름 입력하세여</h3>
+        <input class="usernameInput" type="text" maxlength="14" />
+      </div>
+    </li>
+  </ul> -->
+  <div id="map"></div>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main.js"></script>
+  <script>
+    $(function() {
+      console.log('index.html')
+      const markerClick = (data) => {
+        console.log('markerClick')
+        socket.emit('marker click', data);
+      }
+    });
+    var map = null;
+    
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: {lat: 37.4021712, lng: 127.1104947}
+        });
+
+        google.maps.event.addListener(map, 'click', (event) => {
+          markerClick(event.latLng)
+          console.log(event)
+          placeMarker(event.latLng);
+        });
+    }
+
+    function placeMarker(location) {
+      var marker = new google.maps.Marker({
+          position: location, 
+          map: map
+      });
+    }
+    
+    
+  </script>
+
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZt2ODxE6AeTVarVeo3CK9lcWDkYvxynQ&callback=initMap"></script>
+  
+</body>
+</html>
